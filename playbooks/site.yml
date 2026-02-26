@@ -1,0 +1,9 @@
+---
+- name: 🏗️ Setup infrastructure RPI
+  hosts: all
+  become: true
+  roles:
+    - { role: infra,      tags: infra }
+    - { role: traefik,    tags: traefik }
+    - { role: monitoring, tags: monitoring }
+    - { role: watchtower, tags: watchtower }
