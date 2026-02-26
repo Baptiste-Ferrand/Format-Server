@@ -1,0 +1,27 @@
+---
+# Directories
+monitoring_dir: "{{ infra_root }}/monitoring"
+
+# Images
+grafana_image: "grafana/grafana:latest"
+prometheus_image: "prom/prometheus:latest"
+node_exporter_image: "prom/node-exporter:latest"
+
+# Container names
+grafana_container: "grafana"
+prometheus_container: "prometheus"
+node_exporter_container: "node-exporter"
+
+# Domains
+grafana_domain: "grafana.coak.fr"
+prometheus_domain: "prometheus.coak.fr"
+
+# Grafana credentials
+grafana_admin_user: "admin"
+grafana_admin_password: "changeme"
+
+# Prometheus retention
+prometheus_retention: "15d"
+
+# Shared network
+docker_network_name: "infra_network"

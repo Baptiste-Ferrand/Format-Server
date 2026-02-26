@@ -1,0 +1,42 @@
+---
+- name: 📁 Create monitoring directory
+  ansible.builtin.file:
+    path: "{{ monitoring_dir }}"
+    state: directory
+    owner: user
+    group: user
+    mode: '0755'
+
+- name: 📁 Create Grafana data directory
+  ansible.builtin.file:
+    path: "{{ monitoring_dir }}/grafana"
+    state: directory
+    owner: "472"   # Grafana container runs with uid 472
+    group: "472"
+    mode: '0755'
+
+- name: 📁 Create Prometheus data directory
+  ansible.builtin.file:
+    path: "{{ monitoring_dir }}/prometheus"
+    state: directory
+    owner: "65534" # Prometheus container runs with uid 65534 (nobody)
+    group: "65534"
+    mode: '0755'
+
+- name: 📝 Generate Prometheus configuration file
+  ansible.builtin.template:
+    src: prometheus.yml.j2
+    dest: "{{ monitoring_dir }}/prometheus.yml"
+    mode: '0644'
+
+- name: 📝 Generate docker-compose.monitoring.yml
+  ansible.builtin.template:
+    src: docker-compose.monitoring.j2
+    dest: "{{ monitoring_dir }}/docker-compose.yml"
+    mode: '0644'
+
+- name: 🐳 Start monitoring services
+  community.docker.docker_compose_v2:
+    project_src: "{{ monitoring_dir }}"
+    state: present
+    pull: always
