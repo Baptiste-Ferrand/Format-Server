@@ -1,0 +1,20 @@
+---
+- name: 📁 Create watchtower directory
+  ansible.builtin.file:
+    path: "{{ watchtower_dir }}"
+    state: directory
+    owner: user
+    group: user
+    mode: '0755'
+
+- name: 📝 Generate docker-compose.watchtower.yml
+  ansible.builtin.template:
+    src: docker-compose.watchtower.j2
+    dest: "{{ watchtower_dir }}/docker-compose.yml"
+    mode: '0644'
+
+- name: 🐳 Start watchtower service
+  community.docker.docker_compose_v2:
+    project_src: "{{ watchtower_dir }}"
+    state: present
+    pull: always
