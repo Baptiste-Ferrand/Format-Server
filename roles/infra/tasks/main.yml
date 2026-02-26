@@ -1,0 +1,26 @@
+---
+- name: 📦 Installation system dependencies
+  ansible.builtin.apt:
+    name:
+      - curl
+      - git
+      - ca-certificates
+      - gnupg
+      - python3-pip
+    state: present
+    update_cache: true
+
+- name: 🌐 Create shared Docker network
+  community.docker.docker_network:
+    name: "{{ docker_network_name }}"
+    state: present
+
+- name: 📄 Create acme.json file for Traefik SSL
+  ansible.builtin.file:
+    path: "{{ traefik_dir }}/acme.json"
+    state: touch
+    mode: '0600'
+    owner: user
+    group: user
+    modification_time: preserve
+    access_time: preserve

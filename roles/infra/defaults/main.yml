@@ -1,0 +1,4 @@
+---
+infra_root: /opt/infra
+
+docker_network_name: infra_network
