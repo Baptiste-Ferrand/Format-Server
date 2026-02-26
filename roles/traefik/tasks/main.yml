@@ -1,0 +1,30 @@
+---
+- name: 📁 Create Traefik directories 
+  ansible.builtin.file:
+    path: "{{ traefik_dir }}"
+    state: directory
+    owner: user
+    group: user
+    mode: '0755'
+
+- name: 📄 Create acme.json if it doesn't exist
+  ansible.builtin.file:
+    path: "{{ traefik_dir }}/acme.json"
+    state: touch
+    mode: '0600'
+    owner: user
+    group: user
+    modification_time: preserve
+    access_time: preserve
+
+- name: 📝 Generate docker-compose.traefik.yml
+  ansible.builtin.template:
+    src: docker-compose.traefik.j2
+    dest: "{{ traefik_dir }}/docker-compose.yml"
+    mode: '0644'
+
+- name: 🐳 Start Traefik
+  community.docker.docker_compose_v2:
+    project_src: "{{ traefik_dir }}"
+    state: present
+    pull: always
