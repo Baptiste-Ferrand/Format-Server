@@ -2,7 +2,7 @@
 traefik_dir: "{{ infra_root }}/traefik"
 
 # Traefik configuration
-traefik_image: "traefik:v3.0"
+traefik_image: "traefik:v3.6.1"
 traefik_container: "traefik"
 docker_network_name: "infra_network"
 traefik_dashboard_enabled: true

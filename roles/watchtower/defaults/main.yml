@@ -3,7 +3,7 @@
 watchtower_dir: "{{ infra_root }}/watchtower"
 
 # Image
-watchtower_image: "containrrr/watchtower:latest"
+watchtower_image: "nickfedor/watchtower:1.14.0"
 watchtower_container: "watchtower"
 
 # Check interval in seconds

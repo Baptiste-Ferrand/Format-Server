@@ -24,7 +24,7 @@ services:
       - --api.insecure=false
       - --log.level=INFO
       - --accesslog=true
-{%- if traefik_dashboard_enabled %}
+{% if traefik_dashboard_enabled %}
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.dashboard.rule=Host(`{{ traefik_domain }}`)"
@@ -33,7 +33,7 @@ services:
       - "traefik.http.routers.dashboard.service=api@internal"
       - "traefik.http.routers.dashboard.middlewares=dashboard-auth"
       - "traefik.http.middlewares.dashboard-auth.basicauth.users={{ traefik_dashboard_users }}"
-{%- endif %}
+{% endif %}
     networks:
       - {{ docker_network_name }}
 

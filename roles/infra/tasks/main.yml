@@ -10,17 +10,21 @@
     state: present
     update_cache: true
 
+- name: 🐳 Vérifier si Docker est installé
+  command: docker --version
+  register: docker_installed
+  ignore_errors: true
+  changed_when: false
+
+- name: 🐳 Installer Docker si absent
+  include_tasks: install.yml
+  when: docker_installed.failed
+
+- name: 🐳 Vérifier la version Docker
+  debug:
+    msg: "Docker version : {{ docker_installed.stdout }}"
+    
 - name: 🌐 Create shared Docker network
   community.docker.docker_network:
     name: "{{ docker_network_name }}"
     state: present
-
-- name: 📄 Create acme.json file for Traefik SSL
-  ansible.builtin.file:
-    path: "{{ traefik_dir }}/acme.json"
-    state: touch
-    mode: '0600'
-    owner: user
-    group: user
-    modification_time: preserve
-    access_time: preserve
