@@ -28,3 +28,4 @@
     project_src: "{{ traefik_dir }}"
     state: present
     pull: always
+  when: not ansible_check_mode

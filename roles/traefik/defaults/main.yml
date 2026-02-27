@@ -1,19 +1,13 @@
 ---
-# Répertoire
 traefik_dir: "{{ infra_root }}/traefik"
 
-# Image
+# Traefik configuration
 traefik_image: "traefik:v3.0"
 traefik_container: "traefik"
-
-# Domaine du dashboard Traefik
-traefik_domain: "traefik.ton-domaine.com"
-
-# Let's Encrypt
-acme_email: "ton@email.com"
-
-# Réseau partagé
 docker_network_name: "infra_network"
-
-# Dashboard activé ou non
 traefik_dashboard_enabled: true
+
+# Traefik domain and ACME email
+traefik_domain: ""
+acme_email: ""
+

@@ -11,7 +11,7 @@
   ansible.builtin.file:
     path: "{{ monitoring_dir }}/grafana"
     state: directory
-    owner: "472"   # Grafana container runs with uid 472
+    owner: "472" 
     group: "472"
     mode: '0755'
 
@@ -19,7 +19,7 @@
   ansible.builtin.file:
     path: "{{ monitoring_dir }}/prometheus"
     state: directory
-    owner: "65534" # Prometheus container runs with uid 65534 (nobody)
+    owner: "65534"
     group: "65534"
     mode: '0755'
 
@@ -40,3 +40,4 @@
     project_src: "{{ monitoring_dir }}"
     state: present
     pull: always
+  when: not ansible_check_mode

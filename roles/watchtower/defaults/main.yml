@@ -6,7 +6,7 @@ watchtower_dir: "{{ infra_root }}/watchtower"
 watchtower_image: "containrrr/watchtower:latest"
 watchtower_container: "watchtower"
 
-# Check interval in seconds (300 = 5 minutes)
+# Check interval in seconds
 watchtower_interval: 300
 
 # Remove old images after update
@@ -15,6 +15,6 @@ watchtower_cleanup: true
 # Only update containers with the watchtower label
 watchtower_label_enable: true
 
-# Send notification on update (optional)
+# Send notification on update
 watchtower_notifications: false
 watchtower_notification_url: ""
