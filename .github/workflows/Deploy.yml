@@ -34,7 +34,6 @@ jobs:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
       - name: 🚀 Deploy to server
-        working-directory: ansible
         run: |
           echo '${{ secrets.VAULT_PASSWORD }}' > vault_pass.txt
           ansible-playbook -i hosts playbooks/site.yml \
