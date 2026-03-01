@@ -10,20 +10,20 @@
     state: present
     update_cache: true
 
-- name: 🐳 Vérifier si Docker est installé
+- name: 🐳 Verify if Docker is installed
   command: docker --version
   register: docker_installed
   ignore_errors: true
   changed_when: false
 
-- name: 🐳 Installer Docker si absent
+- name: 🐳 Install Docker if absent
   include_tasks: install.yml
   when: docker_installed.failed
 
-- name: 🐳 Vérifier la version Docker
+- name: 🐳 Verify Docker version
   debug:
     msg: "Docker version : {{ docker_installed.stdout }}"
-    
+
 - name: 🌐 Create shared Docker network
   community.docker.docker_network:
     name: "{{ docker_network_name }}"
