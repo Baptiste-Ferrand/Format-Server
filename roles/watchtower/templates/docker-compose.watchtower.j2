@@ -5,26 +5,19 @@ services:
     container_name: {{ watchtower_container }}
     restart: unless-stopped
     volumes:
-      # Gives Watchtower access to all running containers
       - /var/run/docker.sock:/var/run/docker.sock
     command:
-      # Check for updates every X seconds
       - --interval
       - "{{ watchtower_interval }}"
-      # Only update containers that have the enable label
-      # com.centurylinklabs.watchtower.enable=true
-{%- if watchtower_label_enable %}
+{% if watchtower_label_enable %}
       - --label-enable
-{%- endif %}
-      # Remove old images after update to save disk space
-{%- if watchtower_cleanup %}
+{% endif %}
+{% if watchtower_cleanup %}
       - --cleanup
-{%- endif %}
-      # Send notifications when a container is updated
-{%- if watchtower_notifications %}
+{% endif %}
+{% if watchtower_notifications %}
       - --notifications
       - "{{ watchtower_notification_url }}"
-{%- endif %}
+{% endif %}
     environment:
-      # Timezone for logs and scheduling
       - TZ=Europe/Paris
